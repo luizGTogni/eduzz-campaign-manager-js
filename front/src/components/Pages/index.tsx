@@ -11,8 +11,8 @@ const Pages = memo(() => {
   return (
     <Router>
       <Routes>
-        <Route path='/login/*' element={<PublicPage />} />
-        <Route path='/recovery-password/*' element={<PublicPage />} />
+        <Route path='/login/*' element={<PublicPage page='login' />} />
+        <Route path='/new-password/*' element={<PublicPage page='new-password' />} />
         <Route path='/' element={<PermissionRoute role={null} />} />
 
         <Route element={renderRedirect} />

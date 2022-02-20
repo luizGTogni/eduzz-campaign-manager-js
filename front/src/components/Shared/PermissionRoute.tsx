@@ -11,14 +11,11 @@ interface IProps extends RouteProps {
 const PermissionRoute = memo<IProps>(({ role }) => {
   const isAuthenticated = false;
 
-  console.log('aqui 1');
-
   if (isAuthenticated === undefined) {
     return null;
   }
 
   if (!isAuthenticated) {
-    console.log('aqui 2');
     return <Navigate to='/login' />;
   }
 

@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Route, Routes } from 'react-router-dom';
+import { memo, useEffect, useState } from 'react';
 
 import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Typography from '@eduzz/houston-ui/Typography';
@@ -10,7 +8,17 @@ import NewPasswordPage from './NewPassword';
 
 import logo from '@/assets/images/logo.svg';
 
-const PublicPage: React.FC<IStyledProp> = ({ className }) => {
+interface IPublicPageProps extends IStyledProp {
+  page: string;
+}
+const PublicPage = memo<IPublicPageProps>(({ page, className }) => {
+  const [Page, setPage] = useState(<LoginPage />);
+
+  useEffect(() => {
+    if (page === 'login') setPage(<LoginPage />);
+    else if (page === 'new-password') setPage(<NewPasswordPage />);
+  }, [page]);
+
   return (
     <div className={className}>
       <div className='splash' />
@@ -18,14 +26,7 @@ const PublicPage: React.FC<IStyledProp> = ({ className }) => {
       <div className='container'>
         <img src={logo} alt='logo' />
 
-        <div className='content'>
-          <>
-            <Routes>
-              <Route path='/login' element={LoginPage} />
-              <Route path='/recovery-password' element={NewPasswordPage} />
-            </Routes>
-          </>
-        </div>
+        <div className='content'>{Page}</div>
 
         <div className='footer'>
           <Typography size='x-small'>Eduzz Campaign Manager@{new Date().getFullYear()}</Typography>
@@ -33,6 +34,6 @@ const PublicPage: React.FC<IStyledProp> = ({ className }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PublicPage;

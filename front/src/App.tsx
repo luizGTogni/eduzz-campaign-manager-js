@@ -1,9 +1,16 @@
-function App() {
+import { memo } from 'react';
+
+import ThemeProvider from '@eduzz/houston-ui/styles/ThemeProvider';
+
+import theme from './assets/theme';
+import Pages from './components/Pages';
+
+const App = memo(() => {
   return (
-    <div className='App'>
-      <h1>Título</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Pages />
+    </ThemeProvider>
   );
-}
+});
 
 export default App;

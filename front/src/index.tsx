@@ -1,12 +1,13 @@
-import React from 'react';
+import '@eduzz/houston-forms/yupLocale';
 
 import ReactDOM from 'react-dom';
 
+import setHoustonHooksConfig from '@eduzz/houston-hooks/config';
+
 import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+setHoustonHooksConfig({
+  onUnhandledError: err => console.log(err)
+});
+
+ReactDOM.render(<App />, document.getElementById('root'));

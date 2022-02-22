@@ -1,6 +1,8 @@
 import { memo } from 'react';
 
-import { Navigate, RouteProps } from 'react-router-dom';
+import { Navigate, Route, RouteProps, Routes } from 'react-router-dom';
+
+import PermissionHide from './PermissionHide';
 
 import { enRoles } from '@/interfaces/models/user';
 
@@ -8,8 +10,8 @@ interface IProps extends RouteProps {
   role?: enRoles;
 }
 
-const PermissionRoute = memo<IProps>(({ role }) => {
-  const isAuthenticated = false;
+const PermissionRoute = memo<IProps>(({ role, ...props }) => {
+  const isAuthenticated = true;
 
   if (isAuthenticated === undefined) {
     return null;
@@ -19,7 +21,19 @@ const PermissionRoute = memo<IProps>(({ role }) => {
     return <Navigate to='/login' />;
   }
 
-  return <></>;
+  return (
+    <>
+      <PermissionHide role={role}>
+        <Routes>
+          <Route {...props} />
+        </Routes>
+      </PermissionHide>
+
+      <PermissionHide inverse role={role}>
+        <p>Não Encontrado</p>
+      </PermissionHide>
+    </>
+  );
 });
 
 export default PermissionRoute;

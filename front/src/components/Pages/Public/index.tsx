@@ -29,7 +29,7 @@ const PublicPage = memo<IPublicPageProps>(({ page, className }) => {
         <div className='content'>{Page}</div>
 
         <div className='footer'>
-          <Typography size='x-small'>Eduzz Campaign Manager@{new Date().getFullYear()}</Typography>
+          <Typography size='x-small'>Eduzz Campaign Manager - {new Date().getFullYear()}</Typography>
         </div>
       </div>
     </div>

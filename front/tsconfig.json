@@ -5,6 +5,9 @@
     "target": "es5",
     "experimentalDecorators": true,
     "noFallthroughCasesInSwitch": true,
+    "types": [
+      "node"
+    ],
     "lib": [
       "es2017",
       "dom"

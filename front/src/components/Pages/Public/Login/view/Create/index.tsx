@@ -9,6 +9,7 @@ import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Typography from '@eduzz/houston-ui/Typography';
 
 import IUser from '@/interfaces/models/user';
+import authService from '@/services/auth';
 
 interface ICreateFormProps extends IStyledProp {
   onLogin: (e: MouseEvent<HTMLElement>) => void;
@@ -24,7 +25,7 @@ const CreateForm: React.FC<ICreateFormProps> = props => {
         repassword: yup.string().oneOf([yup.ref('password'), null], 'Senhas devem ser iguais!')
       }),
     async onSubmit(model) {
-      await console.log(model.email, model.password);
+      await authService.create(model);
     }
   });
 

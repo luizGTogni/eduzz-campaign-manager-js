@@ -1,4 +1,4 @@
-import React, { memo, MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
 
 import useForm from '@eduzz/houston-forms/useForm';
 import Button from '@eduzz/houston-ui/Button';
@@ -7,6 +7,8 @@ import PasswordField from '@eduzz/houston-ui/Forms/Password';
 import TextField from '@eduzz/houston-ui/Forms/Text';
 import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Typography from '@eduzz/houston-ui/Typography';
+
+import authService from '@/services/auth';
 
 interface ILoginFormProps extends IStyledProp {
   onCreate: (e: MouseEvent<HTMLElement>) => void;
@@ -27,7 +29,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
         password: yup.string().required()
       }),
     async onSubmit(model: IModel) {
-      await console.log(model.email, model.password);
+      await authService.login(model.email, model.password);
     }
   });
 
@@ -69,4 +71,4 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
   );
 };
 
-export default memo(LoginForm);
+export default LoginForm;

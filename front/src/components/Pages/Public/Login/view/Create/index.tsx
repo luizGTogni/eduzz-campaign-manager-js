@@ -8,6 +8,8 @@ import TextField from '@eduzz/houston-ui/Forms/Text';
 import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Typography from '@eduzz/houston-ui/Typography';
 
+import { Container } from './styles';
+
 import IUser from '@/interfaces/models/user';
 import authService from '@/services/auth';
 
@@ -30,7 +32,7 @@ const CreateForm: React.FC<ICreateFormProps> = props => {
   });
 
   return (
-    <>
+    <Container>
       <Form context={form} className={props.className}>
         <div>
           <Typography size='large' fontWeight='semibold' className='title'>
@@ -47,13 +49,13 @@ const CreateForm: React.FC<ICreateFormProps> = props => {
         </div>
 
         <div>
-          <Button disabled={form.isSubmitting} type='submit' fullWidth>
+          <Button disabled={form.isSubmitting} type='submit' className='submit' fullWidth>
             Cadastrar
           </Button>
 
           <hr />
 
-          <Button disabled={form.isSubmitting} type='submit' fullWidth>
+          <Button disabled={form.isSubmitting} type='submit' className='social-button' fullWidth>
             Cadastrar com o Google
           </Button>
 
@@ -62,7 +64,7 @@ const CreateForm: React.FC<ICreateFormProps> = props => {
           </Typography>
         </div>
       </Form>
-    </>
+    </Container>
   );
 };
 

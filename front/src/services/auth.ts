@@ -19,6 +19,18 @@ export class AuthService {
     store.dispatch(authTokenSlice.actions.clear());
     await cacheService.clear();
   }
+
+  public async sendResetPassword(email: string): Promise<void> {
+    return apiService.post('auth/send-reset', { email });
+  }
+
+  public async resetPassword(token: string, password: string): Promise<void> {
+    return apiService.post('/auth/reset-password', { token, password });
+  }
+
+  public async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+    await apiService.post('/auth/change-password', { currentPassword, newPassword });
+  }
 }
 
 const authService = new AuthService();

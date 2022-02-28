@@ -6,6 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 
 import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 
+import { Container } from './styles';
 import CreateForm from './view/Create';
 import LoginForm from './view/Form';
 import LoginRecoveryAccess from './view/RecoveryAccess';
@@ -24,7 +25,7 @@ const LoginPage = memo<IStyledProp>(({ className }) => {
   if (isAuthenticated) return <Navigate to='/' />;
 
   return (
-    <div className={className}>
+    <Container className={className}>
       <SwipeableViews index={currentView} height='100%'>
         <div className='step'>
           <LoginForm onRecoveryAccess={onRecoveryAccess} onCreate={onCreate} />
@@ -36,7 +37,7 @@ const LoginPage = memo<IStyledProp>(({ className }) => {
           <LoginRecoveryAccess onLogin={onLogin} onComplete={onLogin} />
         </div>
       </SwipeableViews>
-    </div>
+    </Container>
   );
 });
 

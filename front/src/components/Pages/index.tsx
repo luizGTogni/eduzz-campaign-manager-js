@@ -8,9 +8,6 @@ import PublicPage from './Public';
 
 const Pages = memo(() => {
   const renderRedirect = useCallback(() => <Navigate to='/' />, []);
-
-  console.log('aqui');
-
   return (
     <Router>
       <Routes>

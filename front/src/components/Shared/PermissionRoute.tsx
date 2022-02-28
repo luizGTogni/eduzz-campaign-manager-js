@@ -9,7 +9,7 @@ import { enRoles } from '@/interfaces/models/user';
 import { selectorIsAuthenticated } from '@/store/selectors';
 
 interface IProps extends RouteProps {
-  role?: enRoles;
+  role?: enRoles[];
 }
 
 const PermissionRoute = memo<IProps>(({ role, ...props }) => {
@@ -25,13 +25,13 @@ const PermissionRoute = memo<IProps>(({ role, ...props }) => {
 
   return (
     <>
-      <PermissionHide role={role}>
+      <PermissionHide roles={role}>
         <Routes>
           <Route {...props} />
         </Routes>
       </PermissionHide>
 
-      <PermissionHide inverse role={role}>
+      <PermissionHide inverse roles={role}>
         <p>Não Encontrado</p>
       </PermissionHide>
     </>

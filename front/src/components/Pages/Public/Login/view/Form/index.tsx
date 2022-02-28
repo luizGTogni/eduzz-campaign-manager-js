@@ -8,6 +8,9 @@ import TextField from '@eduzz/houston-ui/Forms/Text';
 import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Typography from '@eduzz/houston-ui/Typography';
 
+import { Container } from './styles';
+
+import HLine from '@/components/Layout/HLine';
 import authService from '@/services/auth';
 
 interface ILoginFormProps extends IStyledProp {
@@ -34,13 +37,15 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
   });
 
   return (
-    <>
+    <Container>
       <Form context={form} className={props.className}>
         <div>
           <Typography size='large' fontWeight='semibold' className='title'>
             Bem vindo de volta.
           </Typography>
-          <Typography className='subtitle'>Vamos fazer seu login</Typography>
+          <Typography fontWeight='light' className='subtitle'>
+            Vamos fazer seu login
+          </Typography>
         </div>
 
         <div>
@@ -52,13 +57,13 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
         </div>
 
         <div>
-          <Button disabled={form.isSubmitting} type='submit' fullWidth>
+          <Button disabled={form.isSubmitting} type='submit' className='submit' fullWidth>
             Entrar
           </Button>
 
-          <hr />
+          <HLine />
 
-          <Button disabled={form.isSubmitting} type='submit' fullWidth>
+          <Button disabled={form.isSubmitting} type='submit' className='social-button' fullWidth>
             Entrar com o Google
           </Button>
 
@@ -67,7 +72,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
           </Typography>
         </div>
       </Form>
-    </>
+    </Container>
   );
 };
 

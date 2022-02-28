@@ -5,8 +5,9 @@ import Typography from '@eduzz/houston-ui/Typography';
 
 import LoginPage from './Login';
 import NewPasswordPage from './NewPassword';
+import { Container, Wrapper } from './styles';
 
-import logo from '@/assets/images/logo.svg';
+import Splash from '@/components/Layout/Splash';
 
 interface IPublicPageProps extends IStyledProp {
   page: string;
@@ -20,19 +21,17 @@ const PublicPage = memo<IPublicPageProps>(({ page, className }) => {
   }, [page]);
 
   return (
-    <div className={className}>
-      <div className='splash' />
+    <Container className={className}>
+      <Splash />
 
-      <div className='container'>
-        <img src={logo} alt='logo' />
-
+      <Wrapper>
         <div className='content'>{Page}</div>
 
         <div className='footer'>
           <Typography size='x-small'>Eduzz Campaign Manager - {new Date().getFullYear()}</Typography>
         </div>
-      </div>
-    </div>
+      </Wrapper>
+    </Container>
   );
 });
 

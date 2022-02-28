@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@eduzz/houston-ui/Button';
-import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
+import styled, { breakpoints, IStyledProp } from '@eduzz/houston-ui/styles/styled';
 
 import Campaigns from './Campaigns';
-
-import authService from '@/services/auth';
+import { ScrollTopContext } from './scrollTopContext';
 
 interface IAuthPageProps extends IStyledProp {
   page: string;
@@ -16,6 +14,8 @@ interface IAuthPageProps extends IStyledProp {
 const AuthPage: React.FC<IAuthPageProps> = ({ page, className }) => {
   const [Page, setPage] = useState(<Campaigns />);
   const mainContent = useRef<HTMLDivElement>();
+
+  const scrollTop = useCallback(() => setTimeout(() => mainContent.current.scrollTo(0, 0), 100), []);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,18 +23,36 @@ const AuthPage: React.FC<IAuthPageProps> = ({ page, className }) => {
     else navigate('/');
   }, [page, navigate]);
 
-  const handleLogout = async () => {
-    await authService.logout();
-  };
-
   return (
     <div className={className}>
-      <Button onClick={handleLogout}>Sair</Button>
-      <main ref={mainContent} className='main-content'>
-        {Page}
-      </main>
+      <ScrollTopContext.Provider value={scrollTop}>
+        <main ref={mainContent} className='main-content'>
+          {Page}
+        </main>
+      </ScrollTopContext.Provider>
     </div>
   );
 };
 
-export default AuthPage;
+export default styled(AuthPage)`
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+
+  position: relative;
+
+  & .main-content {
+    width: 100vw;
+    height: 100vh;
+    padding: ${({ theme }) => theme.variables.contentPadding}px;
+
+    background-color: #ffffff;
+
+    overflow: auto;
+
+    ${breakpoints.up('sm')} {
+      padding: ${({ theme }) => theme.variables.contentPaddingUpSm}px;
+    }
+  }
+`;

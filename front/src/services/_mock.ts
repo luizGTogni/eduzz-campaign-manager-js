@@ -22,7 +22,7 @@ const sources = {
   8: 'others'
 };
 
-const campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
+let campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
   id: index + 1,
   name: faker.commerce.productName(),
   link: faker.internet.url(),
@@ -30,13 +30,15 @@ const campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
   revenues: getRandomInt(1000, 10000),
   startDate: faker.date.past(),
   endDate: faker.date.future(),
-  source: sources[getRandomInt(1, 4)]
+  source: sources[getRandomInt(1, 9)]
 }));
+
+let campaignId = campaigns.length;
 
 const requests = {
   GET: {
     '/campaigns': (params: IPaginationParams) => {
-      let result = [...campaigns].slice((params.page - 1) * params.perPage, params.perPage * params.perPage);
+      let result = [...campaigns].slice((params.page - 1) * params.perPage, params.page * params.perPage);
 
       if (params.sort?.field) {
         result = result.sort((a, b) => {
@@ -50,7 +52,9 @@ const requests = {
         total: campaigns.length,
         result
       } as IPaginationResponse<ICampaign>;
-    }
+    },
+    '/campaigns/graphs/revenues': () => getRandomInt(16000, 20000),
+    '/campaigns/graphs/investment': () => getRandomInt(10000, 15000)
   },
   POST: {
     '/auth/login': () => ({
@@ -59,6 +63,26 @@ const requests = {
     }),
     '/auth/create': (data: IUser) => {
       console.log(data);
+    },
+    '/auth/send-reset': () => ({}),
+    '/auth/reset-password': () => ({}),
+    '/auth/change-password': () => ({}),
+    '/campaigns': (model: ICampaign) => {
+      const index = campaigns.findIndex(c => c.id !== model.id);
+
+      if (!index) {
+        const data = { id: ++campaignId, ...model };
+        campaigns.push(data);
+        return data;
+      }
+
+      campaigns[index] = { ...campaigns[index], ...model };
+      return campaigns[index];
+    }
+  },
+  DELETE: {
+    '/campaigns': ({ id }: { id: number }) => {
+      campaigns = campaigns.filter(c => c.id !== id);
     }
   }
 };

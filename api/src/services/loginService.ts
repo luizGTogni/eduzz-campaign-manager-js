@@ -4,8 +4,11 @@ import { getCustomRepository } from 'typeorm';
 import { NotFoundException } from "../exceptions/NotFoundException";
 import { UserRepository } from "../repositories/UserRepository";
 
+import QueueService from './queueService';
+
 class LoginService {
-  constructor(private readonly userRepository: UserRepository) {};
+  constructor(private readonly userRepository: UserRepository,
+              private readonly queueService: typeof QueueService) {};
 
   public async doUserLogin(email: string, password: string): Promise<string> {
     const { JWT_SECRET } = process.env;
@@ -21,15 +24,12 @@ class LoginService {
     return newToken;
   }
 
-  public async sendResetPassword(email: string): Promise<string> {
+  public async sendResetPassword(email: string): Promise<boolean> {
+    const user = await this.userRepository.getUserByEmail(email);
+    if (!user) throw new NotFoundException('Usuário não encontrado');
 
-    return email;
-  }
-
-  public async updatePassword(password: string, token: string): Promise<string> {
-
-    return password + token;
+    return await this.queueService.sendResetPasswordToQueue({ id: user.id, name: user.name, email: user.email });
   }
 }
 
-export default new LoginService(getCustomRepository(UserRepository));
+export default new LoginService(getCustomRepository(UserRepository), QueueService);

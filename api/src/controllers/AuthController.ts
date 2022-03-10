@@ -58,7 +58,7 @@ class AuthController {
   public resetPassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { password, token } = req.body;
-      await this.loginService.updatePassword(password, token);
+      await this.userService.updatePassword(password, token);
       return res.json(true);
     } catch (err) {
       console.log(err);

@@ -16,5 +16,12 @@ services:
     cap_add:
     - SYS_NICE # CAP_SYS_NICE
 
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+
 volumes:
   _volumes:

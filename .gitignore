@@ -191,4 +191,6 @@ sketch
 *.wat
 *.xhtml
 
+_volumes/mysql/data
+
 # End of https://www.toptal.com/developers/gitignore/api/web,visualstudiocode,react,node

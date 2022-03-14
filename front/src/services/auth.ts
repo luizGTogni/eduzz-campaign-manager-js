@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   public async sendResetPassword(email: string): Promise<void> {
-    return apiService.post('auth/send-reset', { email });
+    return apiService.post('/auth/send-reset', { email });
   }
 
   public async resetPassword(token: string, password: string): Promise<void> {

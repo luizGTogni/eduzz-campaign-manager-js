@@ -47,6 +47,7 @@ class AuthController {
   public sendReset = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email } = req.body;
+      console.log(email);
       await this.loginService.sendResetPassword(email);
       return res.json(true);
     } catch (err) {

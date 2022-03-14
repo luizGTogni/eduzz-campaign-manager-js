@@ -41,7 +41,7 @@ class QueueService {
       expiresIn: 3600,
     });
 
-    const link = `${APP_LINK}/api/new-password?t=${newToken}`;
+    const link = `${APP_LINK}/new-password?t=${newToken}`;
     return await this.sendToQueue('user.password.reset', {...data, link});
   }
 }

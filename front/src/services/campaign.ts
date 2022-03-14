@@ -10,11 +10,11 @@ export class CampaignService {
   }
 
   public delete(id: number): Promise<IPaginationResponse<ICampaign>> {
-    return apiService.delete('/campaigns', { id });
+    return apiService.delete(`/campaign/${id}`);
   }
 
   public async graphRevenues(): Promise<number> {
-    const revenues = await apiService.get('/campaigns/graphs/revenues');
+    const revenues = await apiService.get('/campaign/graphs/revenues');
 
     if (revenues <= 0) {
       return 0;
@@ -24,7 +24,7 @@ export class CampaignService {
   }
 
   public async graphInvestment(): Promise<number> {
-    const investment = await apiService.get('/campaigns/graphs/investment');
+    const investment = await apiService.get('/campaign/graphs/investment');
 
     if (investment <= 0) {
       return 0;
@@ -37,7 +37,7 @@ export class CampaignService {
     const revenues = await this.graphRevenues();
     const investment = await this.graphInvestment();
 
-    return (revenues - investment) / investment;
+    return investment ? 0 : (revenues - investment) / investment;
   }
 
   public save(model: Partial<ICampaign>): Promise<ICampaign> {

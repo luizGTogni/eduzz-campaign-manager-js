@@ -6,6 +6,7 @@ import Form from '@eduzz/houston-ui/Forms/Form';
 import PasswordField from '@eduzz/houston-ui/Forms/Password';
 import TextField from '@eduzz/houston-ui/Forms/Text';
 import { IStyledProp } from '@eduzz/houston-ui/styles/styled';
+import Toast from '@eduzz/houston-ui/Toast';
 import Typography from '@eduzz/houston-ui/Typography';
 
 import { Container } from './styles';
@@ -32,7 +33,12 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
         password: yup.string().required()
       }),
     async onSubmit(model: IModel) {
-      await authService.login(model.email, model.password);
+      try {
+        await authService.login(model.email, model.password);
+        console.log('aqui');
+      } catch (err) {
+        Toast.error(err.data.message);
+      }
     }
   });
 

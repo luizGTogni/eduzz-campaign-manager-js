@@ -30,7 +30,7 @@ let campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
   revenues: getRandomInt(1000, 10000),
   startDate: faker.date.past(),
   endDate: faker.date.future(),
-  source: sources[getRandomInt(1, 9)]
+  source_id: sources[getRandomInt(1, 9)]
 }));
 
 let campaignId = campaigns.length;

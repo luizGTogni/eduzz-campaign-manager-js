@@ -6,6 +6,7 @@ import ApiError from '@/errors/api';
 import { API_ENDPOINT } from '@/settings';
 import { store } from '@/store';
 import { apiRequestFormatter } from '@/utils/api/request';
+import { apiResponseFormatter } from '@/utils/api/response';
 
 export class ApiService {
   public get<T = any>(url: string, params?: any): Promise<T> {
@@ -48,7 +49,7 @@ export class ApiService {
               'Content-Type': data instanceof FormData ? 'multipart/form-data' : 'application/json'
             },
             params: method === 'GET' ? apiRequestFormatter(data) : null,
-            data: method === 'POST' || method === 'PUT' ? apiRequestFormatter(data) : null,
+            data: method === 'POST' || method === 'PUT' || method === 'DELETE' ? apiRequestFormatter(data) : null,
             onUploadProgress: (progress: ProgressEvent) => {
               onProgress && onProgress((progress.loaded / progress.total) * 100);
             }
@@ -58,7 +59,7 @@ export class ApiService {
       const response = await request;
       onProgress && onProgress(100);
 
-      return apiRequestFormatter<T>(response.data || {});
+      return apiResponseFormatter<T>(response.data || {});
     } catch (err) {
       return this.handleError<T>(err);
     }

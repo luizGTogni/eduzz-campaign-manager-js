@@ -27,14 +27,14 @@ interface ICampaignFormProps extends IStyledProp {
 }
 
 const sources: ISelectFieldOption[] = [
-  { label: 'Facebook', value: 'facebook' },
-  { label: 'Instagram', value: 'instagram' },
-  { label: 'Whatsapp', value: 'whatsapp' },
-  { label: 'Google', value: 'google' },
-  { label: 'TikTok', value: 'tiktok' },
-  { label: 'Youtube', value: 'youtube' },
-  { label: 'Twitter', value: 'twitter' },
-  { label: 'Outros', value: 'others' }
+  { label: 'Facebook', value: 1 },
+  { label: 'Instagram', value: 2 },
+  { label: 'Whatsapp', value: 3 },
+  { label: 'Google', value: 4 },
+  { label: 'TikTok', value: 5 },
+  { label: 'Youtube', value: 6 },
+  { label: 'Twitter', value: 7 },
+  { label: 'Outros', value: 8 }
 ];
 const CampaignForm: React.FC<ICampaignFormProps> = props => {
   const { opened, className, data, onComplete, onCancel } = props;
@@ -44,7 +44,7 @@ const CampaignForm: React.FC<ICampaignFormProps> = props => {
       yup.object().shape({
         name: yup.string().required().min(3).max(250),
         link: yup.string().url(),
-        source: yup.string().required(),
+        source_id: yup.string().required(),
         investment: yup.number().required().min(0),
         revenues: yup.number().min(0),
         startDate: yup.date().required(),
@@ -72,7 +72,7 @@ const CampaignForm: React.FC<ICampaignFormProps> = props => {
         <DialogContent className='content'>
           <TextField label='Nome da Campanha' name='name' />
           <TextField label='Link' name='link' placeholder='https://minha-campanha.exemplo.com' />
-          <SelectField label='Fonte da Campanha' name='source' emptyOption='Selecione' options={sources} />
+          <SelectField label='Fonte da Campanha' name='source_id' emptyOption='Selecione' options={sources} />
 
           <Grid.Row>
             <Grid.Column xs={12} sm={6}>

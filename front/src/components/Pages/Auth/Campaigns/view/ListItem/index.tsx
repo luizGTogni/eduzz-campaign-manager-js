@@ -31,14 +31,15 @@ import { formatDate } from '@/utils/formatDate';
 import { formatMoney } from '@/utils/formatMoney';
 
 const iconsMap = {
-  facebook: FaFacebookSquare,
-  instagram: FaInstagramSquare,
-  whatsapp: FaWhatsappSquare,
-  google: FaGoogle,
-  youtube: FaYoutubeSquare,
-  twitter: FaTwitterSquare,
-  tiktok: FaTiktok
+  1: FaFacebookSquare,
+  2: FaInstagramSquare,
+  3: FaWhatsappSquare,
+  4: FaGoogle,
+  5: FaYoutubeSquare,
+  6: FaTwitterSquare,
+  7: FaTiktok
 };
+
 interface IProps {
   data: ICampaign;
   index: number;
@@ -57,14 +58,8 @@ const ListItem = memo<IProps>(props => {
   const roi = (((data.revenues - data.investment) / data.investment) * 100).toFixed(2);
 
   const Icon = useMemo(() => {
-    return iconsMap[data.source] ?? FaGlobe;
-  }, [data.source]);
-
-  const title = useMemo(() => {
-    if (data.source === 'others') return 'Outros';
-
-    return data.source.slice(0, 1).toUpperCase() + data.source.slice(1);
-  }, [data.source]);
+    return iconsMap[data.source_id] ?? FaGlobe;
+  }, [data.source_id]);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -111,7 +106,7 @@ const ListItem = memo<IProps>(props => {
   return (
     <StyledTableRow data={data} index={index}>
       <Table.Cell mobileSize={3}>
-        <div title={title}>
+        <div>
           <Icon size={30} />
         </div>
       </Table.Cell>

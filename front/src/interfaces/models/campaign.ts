@@ -2,7 +2,7 @@ export type Sources = 'facebook' | 'instagram' | 'whatsapp' | 'google' | 'tiktok
 
 export interface ICampaign {
   id: number;
-  source: Sources;
+  source_id: Sources;
   name: string;
   link?: string;
   investment: number;
